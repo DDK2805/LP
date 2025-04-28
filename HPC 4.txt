@@ -1,0 +1,24 @@
+import cupy as xp
+
+N = int(input("Enter size : "))
+
+
+A = xp.array([int(input(f"A[{i}]: ")) for i in range(N)])
+B = xp.array([int(input(f"B[{i}]: ")) for i in range(N)])
+
+print("\nVector A:", A)
+print("Vector B:", B)
+print("Addition (A + B):", A + B)
+
+D = xp.array([[int(input(f"D[{i}][{j}]: ")) for j in range(N)] for i in range(N)])
+E = xp.array([[int(input(f"E[{i}][{j}]: ")) for j in range(N)] for i in range(N)])
+
+print("\nMatrix D:")
+print(D)
+print("\nMatrix E:")
+print(E)
+
+
+F = D @ E
+print("\nMultiplication Result (D x E):")
+print(F)
