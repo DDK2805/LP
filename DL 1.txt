@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.datasets import boston_housing
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import r2_score, mean_squared_error
+
+# Load dataset
+(X_train, y_train), (X_test, y_test) = boston_housing.load_data()
+
+# Standardize features
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Build Linear Regression model using DNN
+model = Sequential([
+    Dense(1, input_shape=(13,), activation='linear')
+])
+model.compile(optimizer='adam', loss='mse')
+
+# Train model
+history = model.fit(X_train, y_train, epochs=50, verbose=0)
+
+# Predict and evaluate
+y_pred = model.predict(X_test)
+print("R2 Score =", r2_score(y_test, y_pred))
+print("RMSE =", np.sqrt(mean_squared_error(y_test, y_pred)))
+
+# Visualization: Plot loss vs epochs
+plt.plot(history.history['loss'])
+plt.title('Training Loss over Epochs')
+plt.xlabel('Epoch')
+plt.ylabel('Loss (MSE)')
+plt.grid(True)
+plt.show()
